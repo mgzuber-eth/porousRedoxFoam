@@ -37,5 +37,6 @@ Simulation case files are included in the run directory. Run the simulations via
 The case files for a variation of reduction and oxidation at Tsp=966C are included. 
 	
 Note that the solver is primarily a thermodynamic solver for solving solid-gas 
-heterogeneous reactions. The gas flows through a porous fixed-bed. Apparent kinetics
-are implemented. The majority of the thermodynamics are hard-coded into the src files.
+heterogeneous reactions involving a non-stoichiometric solid metal-oxide. The gas
+flows through a porous fixed-bed. Apparent kinetics are implemented. The majority
+of the thermodynamics are hard-coded into the src files.
