@@ -1,0 +1,7 @@
+SOURCE += HGSSolidThermo/HGSSolidThermo.C
+SOURCE += HGSSolidThermo/HGSSolidThermoNew.C
+
+SOURCE += HGSSolidMixtureThermo/HGSSolidMixtureThermo/HGSSolidMixtureThermos.C
+SOURCE += HGSSolidMixtureThermo/mixtures/basicSolidMixture/basicSolidMixture.C
+
+LIB = $(FOAM_USER_LIBBIN)/libHGSSolidRedoxThermo
