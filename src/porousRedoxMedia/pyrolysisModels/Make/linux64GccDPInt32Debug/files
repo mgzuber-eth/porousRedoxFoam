@@ -1,0 +1,5 @@
+SOURCE += pyrolysisModel/heterogeneousPyrolysisModel/heterogeneousPyrolysisModel.C
+SOURCE += pyrolysisModel/heterogeneousPyrolysisModel/heterogeneousPyrolysisModelNew.C
+SOURCE += pyrolysisModel/volPyrolysis/volPyrolysis.C
+
+LIB = $(FOAM_USER_LIBBIN)/libHGSheterogeneousRedoxPyrolysisModels
