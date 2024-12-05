@@ -1,0 +1,6 @@
+SOURCE += solidChemistryModel/basicSolidChemistryModel/basicSolidChemistryModel.C
+SOURCE += solidChemistryModel/BasicSolidChemistryModel/BasicSolidChemistryModels.C
+
+SOURCE += solidChemistrySolver/solidChemistrySolver/solidChemistrySolvers.C
+
+LIB = $(FOAM_USER_LIBBIN)/libsolidRedoxChemistryModel
