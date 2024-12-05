@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.1;
+    format      binary;
+    class       dictionary;
+    location    "constant";
+    object      chemistryProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+chemistry           on;
+
+chemistryType
+{
+    solver            ode;//ode; NOT ACTIVE UNLESS combustionProperties is unlocked!!
+}
+
+solidChemistryType
+{
+    solver              solidOde;
+    method              ODESolidHeterogeneousChemistryModel;
+    solidThermoType     const<constRad<expoThermo<constRho>>>;
+}
+
+chemistrySolver     ode;
+
+solidChemistrySolver	solidOde;
+
+initialChemicalTimeStep 1e-7;
+
+solidReactionEnergyFromEnthalpy true;
+stoichiometricReactions true;
+showRelativeReactionRates false;
+
+diffusionLimitedReactions false;
+
+
+odeCoeffs
+{
+    solver          seulex; 
+	absTol			1e-8; 
+	relTol			0.001; 
+}
+
+solidOdeCoeffs
+{
+    solver      seulex; 
+	absTol			1e-5; 
+	relTol			0.1; 
+}
+
+
+
+species 	
+(
+    CH4 CO CO2 H2 H2O AR 
+);
+
+solidReactions
+(
+
+	reversibleSolidArrheniusHeterogeneousReaction
+	0.172 ceria + 1 CH4 = 0.15600052 cered + 1 CO + 2 H2 
+	(397752627. 29625.0 300 1. 0. 0. 0. 0. 0. 0.) 
+	
+	reversibleSolidArrheniusHeterogeneousReaction
+	0.688 ceria + 1 CH4 = 0.6240024 cered + 1 CO2 + 2 H2O
+	(37428. 16989. 300 2. 0. 0. 0. 0. 0. 0.) 
+
+	reversibleSolidArrheniusHeterogeneousReaction
+	0.172 ceria + 1 CO = 0.1560006 cered + 1 CO2 
+	(2114807509. 31804.0 300 4. 0. 0. 0. 0. 0.) 
+	
+	reversibleSolidArrheniusHeterogeneousReaction
+	0.172 ceria + 1 H2 = 0.15600064 cered + 1 H2O 
+	(29607305124. 31804.0 300 3. 0. 0. 0. 0. 0.) 
+	
+	//reversibleSolidArrheniusHeterogeneousReaction
+	//0.156 cered + 1 CO2 = 0.172 ceria + 1 CO 
+	//(1.9818e6 1.883e4 300 5. 0. 0. 1. 0. 1.) 
+	
+);
+
+//#include "reactions"
+
+// ************************************************************************* //
+
+

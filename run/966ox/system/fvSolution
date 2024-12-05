@@ -1,0 +1,134 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "(rho|rhoFinal)"
+    {
+        solver          diagonal;
+    }
+    p
+    {
+        solver          GAMG;
+        tolerance       1e-05;
+        relTol          0.001;
+        smoother        DIC;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 10;
+        agglomerator    faceAreaPair;
+        mergeLevels     1;
+    }
+    pFinal
+    {
+        solver          GAMG;
+        tolerance       1e-05;
+        relTol          0.001;
+        smoother        DIC;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 10;
+        agglomerator    faceAreaPair;
+        mergeLevels     1;
+    }
+    
+	Yi
+	{
+		solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0;
+	}
+	
+	YiFinal
+	{
+		solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0.001;
+	}
+	
+	
+	"(U|h|Ys|porosity)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0.001;
+    }
+    
+    "(U|h|Ys|porosity)Final"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0.001;
+    }
+    Ts
+    {
+        solver           PCG;
+        preconditioner   DIC;
+        tolerance        1e-6;
+        relTol           0.001;
+    }
+
+    rhos
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-05;
+        relTol          0.001;
+    }
+
+    G
+    {
+        $p;
+        tolerance       1e-05;
+        relTol          1e-2;
+    }
+
+    GFinal
+    {
+        $G;
+        relTol          0;
+    }
+	
+}
+
+
+PIMPLE
+{
+    momentumPredictor yes; 
+    nOuterCorrectors  2;
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 0;
+}
+
+
+relaxationFactors
+{
+    equations
+    {
+        U   1;
+        Ufinal 1;
+        h  1;
+        hFinal  1;
+        Yi  0.87; 
+        YiFinal 0.87; 
+    }
+}
+
+// *************************************************************************//
+

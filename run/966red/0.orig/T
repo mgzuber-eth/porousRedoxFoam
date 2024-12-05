@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 1239.;
+
+boundaryField
+{
+    inlet
+    {
+        type            fixedValue;
+        value           uniform 1192.1;
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    axis
+    {
+        type            empty;
+    }
+    negZside
+    {
+        type            wedge;
+    }
+    posZside
+    {
+        type            wedge;
+    }
+    tubeWall
+    {
+        type            codedFixedValue;
+        value           $internalField;
+        name            temperatureProfile;
+        code            #{
+			vector dir=vector(1,0,0); //x coordinate
+			scalarField var = patch().Cf()&dir;
+            scalarField reactorT = 2365.3*pow(var,3)-2019.6*pow(var,2.)+562.0*var+1242.1 - 50.0;
+			operator==(reactorT);
+		#};
+    }
+}
+
+
+// ************************************************************************* //

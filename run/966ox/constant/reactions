@@ -1,0 +1,11 @@
+reactions
+{
+    un-zuber-reaction-0
+    {
+        type            reversibleArrhenius;
+        reaction        "CO2 + H2 = H2O + CO";
+        A               3000000000.7;
+	    beta            0;
+        Ta              14900.98;
+    }
+}

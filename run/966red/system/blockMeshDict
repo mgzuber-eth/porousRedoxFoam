@@ -1,0 +1,124 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+/*Creating a 3^deg wedge for 2D axisymmetric simulation of tubular reactor
+with inner diameter of 0.019 m*/
+
+convertToMeters  1; //keep scale as specified in all coordinates [m]
+
+//Diameter of 1.9 cm, length of 30 cm, theta of 0.05 radians
+
+/* Coordinate Definition
+ * 
+ * 				3--------2
+ * 				| \		 . \
+ * 				|  \     .  \
+ * 				|	7--------6
+ * 	y			|   |    .   |
+ * 	^			|   |    .   |
+ * 	|			0 ..|....1   |
+ * 	|			  \	|	   \ |
+ * 	|---->x 	   \|       \|
+ * 	\				4--------5
+ * 	 \
+ * 	  \
+ * 	   V z
+ */
+
+
+vertices 
+(
+    (0 0 0) //vertex #0
+    (0.3 0 0) //1
+    (0.3 0.009497031 -0.000237475) //2
+    (0 0.009497031 -0.000237475) //3
+    (0 0 0.00047495) //4
+    (0.3 0 0.00047495) //5
+    (0.3 0.009497031 0.000237475) //6
+    (0 0.009497031 0.000237475) //7
+);
+
+blocks
+(
+    hex (0 1 2 3 0 1 6 7) (60 8 1) simpleGrading (1 0.6 1)
+	//hex (vertices to make the block) (#cells in each direction) simpleGrading (cell expansion in each direction for inflation layer)
+);
+
+edges
+(
+);
+
+boundary
+(	
+	inlet
+	{
+		type patch;
+		faces
+		(
+			(0 0 7 3)
+		);
+	}
+	
+	outlet
+	{
+		type patch;
+		faces
+		(
+			(2 6 1 1)
+		);
+	}
+	
+	axis
+	{
+		type empty; //required for axisymmetric simulation
+		faces
+		(
+			(1 1 0 0)
+		);
+	}
+	
+	negZside
+	{
+		type wedge; //required for axisymmetric simulation
+		faces
+		(	            
+			(0 3 2 1)		
+		);
+	}
+	
+	posZside
+	{
+		type wedge; //required for axisymmetric simulation
+		faces
+		(
+			(0 1 6 7)
+		);
+	}
+	
+	tubeWall
+    {
+        type wall;
+        faces
+        (
+            (3 7 6 2)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
