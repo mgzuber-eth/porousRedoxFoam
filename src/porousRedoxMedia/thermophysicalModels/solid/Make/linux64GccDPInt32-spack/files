@@ -1,0 +1,19 @@
+SOURCE += rhoType/const/constRho.C
+SOURCE += rhoType/heterogeneousConst/heterogeneousConstRho.C
+
+SOURCE += reaction/Reactions/solidReaction/solidReaction.C
+SOURCE += reaction/Reactions/solidHeterogeneousReaction/solidHeterogeneousReaction.C
+SOURCE += reaction/heterogeneousReactions/makeSolidHeterogeneousReactionThermoReactions.C
+
+SOURCE += heatTransfer/heatTransferModel/heatTransferModel.C
+SOURCE += heatTransfer/const/const.C
+SOURCE += heatTransfer/pipe/pipe.C
+SOURCE += heatTransfer/cylinder/cylinder.C
+
+SOURCE += specieTransfer/specieTransferModel/specieTransferModel.C
+SOURCE += specieTransfer/empty/emptyST.C
+SOURCE += specieTransfer/const/constST.C
+SOURCE += specieTransfer/cylinder/cylinderST.C
+SOURCE += specieTransfer/pipe/pipeST.C
+
+LIB = $(FOAM_USER_LIBBIN)/libHGSRedoxsolid
