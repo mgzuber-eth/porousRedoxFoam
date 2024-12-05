@@ -1,0 +1,12 @@
+SOURCE += heterogeneousAbsorptionEmissionModels/heterogeneousAbsorptionEmissionModel/heterogeneousAbsorptionEmissionModel.C
+SOURCE += heterogeneousAbsorptionEmissionModels/heterogeneousAbsorptionEmissionModel/newHeterogeneousAbsorptionEmissionModel.C
+SOURCE += heterogeneousAbsorptionEmissionModels/heterogeneousConstantAbsorptionEmission/heterogeneousConstantAbsorptionEmission.C
+
+
+SOURCE += heterogeneousRadiationModels/heterogeneousRadiationModel/heterogeneousRadiationModel.C
+SOURCE += heterogeneousRadiationModels/heterogeneousRadiationModel/heterogeneousRadiationModelNew.C
+SOURCE += heterogeneousRadiationModels/heterogeneousNoRadiation/heterogeneousNoRadiation.C
+SOURCE += heterogeneousRadiationModels/heterogeneousP1/heterogeneousP1.C
+SOURCE += heterogeneousRadiationModels/heterogeneousMeanTemp/heterogeneousMeanTemp.C
+
+LIB = $(FOAM_USER_LIBBIN)/libHGSradiationRedoxModels
